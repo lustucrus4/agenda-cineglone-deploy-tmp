@@ -1,0 +1,21 @@
+{
+  "name": "agenda-cineglone-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start:api": "node src/api-server.js",
+    "start:worker": "node src/worker.js",
+    "start:scheduler": "node src/scheduler.js"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "bullmq": "^5.58.5",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "googleapis": "^157.0.0",
+    "ioredis": "^5.8.1",
+    "uuid": "^13.0.0"
+  }
+}

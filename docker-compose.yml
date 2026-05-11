@@ -1,0 +1,52 @@
+services:
+  api:
+    build: .
+    container_name: agenda-node-api
+    command: npm run start:api
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8090:8090"
+    volumes:
+      - ./runtime:/app/runtime
+      - ./credentials:/data/credentials
+    restart: always
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    container_name: agenda-node-worker
+    command: npm run start:worker
+    env_file:
+      - .env
+    volumes:
+      - ./runtime:/app/runtime
+      - ./credentials:/data/credentials
+    restart: always
+    depends_on:
+      - redis
+
+  scheduler:
+    build: .
+    container_name: agenda-node-scheduler
+    command: npm run start:scheduler
+    env_file:
+      - .env
+    volumes:
+      - ./runtime:/app/runtime
+      - ./credentials:/data/credentials
+    restart: always
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: agenda-node-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    restart: always
+
+volumes:
+  redis-data:
